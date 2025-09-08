@@ -11,10 +11,11 @@ package aisdk
 
 import (
 	"context"
-	"github.com/liusuxian/go-aisdk/consts"
-	"github.com/liusuxian/go-aisdk/core"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/models"
+
+	"github.com/Mrzhouyl/go-aisdk/consts"
+	"github.com/Mrzhouyl/go-aisdk/core"
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/models"
 )
 
 // CreateImage 创建图像

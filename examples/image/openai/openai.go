@@ -12,18 +12,19 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/liusuxian/go-aisdk"
-	"github.com/liusuxian/go-aisdk/consts"
-	"github.com/liusuxian/go-aisdk/errors"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/models"
-	"github.com/liusuxian/go-aisdk/utils"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/Mrzhouyl/go-aisdk"
+	"github.com/Mrzhouyl/go-aisdk/consts"
+	"github.com/Mrzhouyl/go-aisdk/errors"
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/models"
+	"github.com/Mrzhouyl/go-aisdk/utils"
 )
 
 func getApiKeys(envKey string) (apiKeys string) {

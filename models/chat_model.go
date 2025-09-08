@@ -12,10 +12,11 @@ package models
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/liusuxian/go-aisdk/consts"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/internal/utils"
 	"strings"
+
+	"github.com/Mrzhouyl/go-aisdk/consts"
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/internal/utils"
 )
 
 // ChatMessage 聊天消息的通用接口

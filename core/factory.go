@@ -9,7 +9,7 @@
  */
 package core
 
-import "github.com/liusuxian/go-aisdk/consts"
+import "github.com/Mrzhouyl/go-aisdk/consts"
 
 // providerFactory 管理所有AI服务提供商的工厂
 type providerFactory struct {

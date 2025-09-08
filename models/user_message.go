@@ -9,7 +9,7 @@
  */
 package models
 
-import "github.com/liusuxian/go-aisdk/internal/utils"
+import "github.com/Mrzhouyl/go-aisdk/internal/utils"
 
 // ChatUserMsgPartType 多模态内容类型
 type ChatUserMsgPartType string

@@ -9,7 +9,7 @@
  */
 package models
 
-import "github.com/liusuxian/go-aisdk/internal/utils"
+import "github.com/Mrzhouyl/go-aisdk/internal/utils"
 
 // ChatAssistantMsgAudio 音频
 type ChatAssistantMsgAudio struct {
@@ -75,8 +75,8 @@ type AssistantMessage struct {
 	Refusal string `json:"refusal,omitempty" providers:"openai"`
 	// 工具调用
 	//
-	// 提供商支持: OpenAI
-	ToolCalls []ToolCalls `json:"tool_calls,omitempty" providers:"openai"`
+	// 提供商支持: OpenAI | DeepSeek
+	ToolCalls []ToolCalls `json:"tool_calls,omitempty" providers:"openai,deepseek"`
 	// 设置此参数为 true，来强制模型在其回答中以此 assistant 消息中提供的前缀内容开始
 	//
 	// 提供商支持: DeepSeek | AliBL

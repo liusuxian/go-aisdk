@@ -10,10 +10,11 @@
 package models
 
 import (
-	"github.com/liusuxian/go-aisdk/consts"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/internal/utils"
 	"io"
+
+	"github.com/Mrzhouyl/go-aisdk/consts"
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/internal/utils"
 )
 
 // ImageBackground 背景透明度类型

@@ -9,7 +9,7 @@
  */
 package aisdk
 
-import "github.com/liusuxian/go-aisdk/httpclient"
+import "github.com/Mrzhouyl/go-aisdk/httpclient"
 
 // WithMiddleware 添加中间件
 func WithMiddleware(m httpclient.Middleware) (opt SDKClientOption) {

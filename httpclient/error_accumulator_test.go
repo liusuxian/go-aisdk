@@ -12,9 +12,10 @@ package httpclient_test
 import (
 	"bytes"
 	"errors"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/httpclient/test"
 	"testing"
+
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/httpclient/test"
 )
 
 func TestErrorAccumulatorBytes(t *testing.T) {

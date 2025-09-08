@@ -11,7 +11,6 @@ package utils_test
 
 import (
 	"fmt"
-	"github.com/liusuxian/go-aisdk/utils"
 	"image"
 	"image/color"
 	"image/draw"
@@ -20,6 +19,8 @@ import (
 	"os"
 	"testing"
 	"time"
+
+	"github.com/Mrzhouyl/go-aisdk/utils"
 )
 
 func createTempImage(ext string) (tempFile string, err error) {

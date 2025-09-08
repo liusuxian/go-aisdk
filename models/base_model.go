@@ -9,7 +9,7 @@
  */
 package models
 
-import "github.com/liusuxian/go-aisdk/consts"
+import "github.com/Mrzhouyl/go-aisdk/consts"
 
 // ModelInfo 模型信息结构
 type ModelInfo struct {

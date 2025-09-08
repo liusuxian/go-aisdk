@@ -13,12 +13,13 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/liusuxian/go-aisdk/consts"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/internal/utils"
-	"github.com/liusuxian/go-aisdk/loadbalancer"
 	"net/http"
 	"time"
+
+	"github.com/Mrzhouyl/go-aisdk/consts"
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/internal/utils"
+	"github.com/Mrzhouyl/go-aisdk/loadbalancer"
 )
 
 const (

@@ -11,10 +11,11 @@ package core
 
 import (
 	"context"
-	"github.com/liusuxian/go-aisdk/conf"
-	"github.com/liusuxian/go-aisdk/consts"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/models"
+
+	"github.com/Mrzhouyl/go-aisdk/conf"
+	"github.com/Mrzhouyl/go-aisdk/consts"
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/models"
 )
 
 // ProviderService AI服务提供商的服务接口

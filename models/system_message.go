@@ -9,7 +9,7 @@
  */
 package models
 
-import "github.com/liusuxian/go-aisdk/internal/utils"
+import "github.com/Mrzhouyl/go-aisdk/internal/utils"
 
 // SystemMessage 系统消息
 type SystemMessage struct {

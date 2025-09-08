@@ -11,11 +11,12 @@ package alibl
 
 import (
 	"context"
-	"github.com/liusuxian/go-aisdk/consts"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/models"
-	"github.com/liusuxian/go-aisdk/providers/common"
 	"net/http"
+
+	"github.com/Mrzhouyl/go-aisdk/consts"
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/models"
+	"github.com/Mrzhouyl/go-aisdk/providers/common"
 )
 
 const (

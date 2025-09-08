@@ -10,10 +10,11 @@
 package flake_test
 
 import (
-	"github.com/liusuxian/go-aisdk/flake"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/Mrzhouyl/go-aisdk/flake"
 )
 
 func TestNextRequestID(t *testing.T) {

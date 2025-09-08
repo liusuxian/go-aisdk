@@ -10,8 +10,8 @@
 package models
 
 import (
-	"github.com/liusuxian/go-aisdk/consts"
-	"github.com/liusuxian/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/consts"
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
 )
 
 // ListModelsRequest 列出模型请求

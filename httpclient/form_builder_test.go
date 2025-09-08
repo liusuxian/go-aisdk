@@ -12,10 +12,11 @@ package httpclient_test
 import (
 	"bytes"
 	"errors"
-	"github.com/liusuxian/go-aisdk/httpclient"
-	"github.com/liusuxian/go-aisdk/httpclient/test/checks"
 	"os"
 	"testing"
+
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
+	"github.com/Mrzhouyl/go-aisdk/httpclient/test/checks"
 )
 
 type failingWriter struct {

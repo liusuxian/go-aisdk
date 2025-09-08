@@ -23,7 +23,7 @@ go-aisdk 遵循以下设计原则：
 ### 安装
 
 ```bash
-go get github.com/liusuxian/go-aisdk
+go get github.com/Mrzhouyl/go-aisdk
 ```
 
 ## 支持的服务提供商

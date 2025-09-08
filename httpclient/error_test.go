@@ -11,8 +11,9 @@ package httpclient_test
 
 import (
 	"errors"
-	"github.com/liusuxian/go-aisdk/httpclient"
 	"testing"
+
+	"github.com/Mrzhouyl/go-aisdk/httpclient"
 )
 
 func TestRequestError_Error(t *testing.T) {

@@ -109,6 +109,27 @@ func (s *Serializer) serializeValue(v reflect.Value, visited *map[uintptr]bool, 
 		defer delete((*visited), ptr) // 序列化完成后清理，允许同一对象在不同路径中出现
 		return s.serializeValue(v.Elem(), visited, depth+1)
 	}
+	// 优先处理实现了 json.Marshaler 的类型（尊重自定义序列化逻辑）
+	if v.CanInterface() {
+		if marshaler, ok := v.Interface().(json.Marshaler); ok {
+			var b []byte
+			if b, err = marshaler.MarshalJSON(); err != nil {
+				return
+			}
+			// 将自定义 JSON 反序列化为任意类型以合并到结果中
+			var anyVal any
+			if len(b) == 0 {
+				return
+			}
+			if err = json.Unmarshal(b, &anyVal); err != nil {
+				// 如果不是标准 JSON（例如返回的是裸字符串而不是带引号），尝试按字符串处理
+				anyVal = string(b)
+			}
+			result = anyVal
+			isValid = true
+			return
+		}
+	}
 	// 处理不同类型
 	switch v.Kind() {
 	case reflect.Struct:

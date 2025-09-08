@@ -11,12 +11,13 @@ package conf_test
 
 import (
 	"encoding/json"
-	"github.com/liusuxian/go-aisdk/conf"
-	"github.com/liusuxian/go-aisdk/consts"
 	"os"
 	"path/filepath"
 	"reflect"
 	"testing"
+
+	"github.com/Mrzhouyl/go-aisdk/conf"
+	"github.com/Mrzhouyl/go-aisdk/consts"
 )
 
 func TestSDKConfigManager(t *testing.T) {
