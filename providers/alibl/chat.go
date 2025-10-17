@@ -2,7 +2,7 @@
  * @Author: liusuxian 382185882@qq.com
  * @Date: 2025-06-25 12:47:24
  * @LastEditors: liusuxian 382185882@qq.com
- * @LastEditTime: 2025-07-03 15:32:33
+ * @LastEditTime: 2025-10-16 16:10:13
  * @Description:
  *
  * Copyright (c) 2025 by liusuxian email: 382185882@qq.com, All Rights Reserved.
@@ -61,7 +61,7 @@ func (s *aliblProvider) CreateChatCompletionStream(ctx context.Context, request 
 // apiChatCompletions 获取聊天接口
 func (s *aliblProvider) apiChatCompletions(model string) (api string) {
 	// 判断模型是否支持多模态
-	if s.supportedModels[consts.ChatModel][model] == 1 {
+	if s.supportedModels[consts.ChatModel][model].IsMultimodal() {
 		return apiChatCompletionsMultimodal
 	}
 	return apiChatCompletionsText

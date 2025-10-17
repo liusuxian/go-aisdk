@@ -2,7 +2,7 @@
  * @Author: liusuxian 382185882@qq.com
  * @Date: 2025-04-15 18:42:36
  * @LastEditors: liusuxian 382185882@qq.com
- * @LastEditTime: 2025-07-03 22:36:41
+ * @LastEditTime: 2025-10-17 18:44:14
  * @Description:
  *
  * Copyright (c) 2025 by liusuxian email: 382185882@qq.com, All Rights Reserved.
@@ -422,6 +422,10 @@ const (
 	//
 	// 提供商支持: AliBL
 	ChatOCRTaskMultiLan ChatOCRTask = "multi_lan"
+	// 高精识别
+	//
+	// 提供商支持: AliBL
+	ChatOCRTaskAdvancedRecognition ChatOCRTask = "advanced_recognition"
 )
 
 // ChatOCRTaskConfig OCR模型执行内置任务的配置项
@@ -441,7 +445,7 @@ type ChatOCROptions struct {
 	// 当内置任务task为"key_information_extraction"（信息抽取）时使用
 	//
 	// 提供商支持: AliBL
-	TaskConfig []ChatOCRTaskConfig `json:"task_config,omitempty" providers:"alibl"`
+	TaskConfig *ChatOCRTaskConfig `json:"task_config,omitempty" providers:"alibl"`
 }
 
 // ChatTranslationLanguageType 翻译支持的语言类型
@@ -807,8 +811,8 @@ func (r ChatRequest) MarshalJSON() (b []byte, err error) {
 		if BoolValue(r.Stream) {
 			temp.IncrementalOutput = Bool(true)
 		}
-		// TODO 特殊处理（qwen-plus系列模型在开启思考模式时，incremental_output必须为true）
-		if strings.Contains(r.Model, "qwen-plus") && BoolValue(r.EnableThinking) {
+		// 特殊处理（qwen-plus系列模型在开启思考模式时，incremental_output必须为true）
+		if BoolValue(r.EnableThinking) && strings.Contains(r.Model, "qwen-plus") {
 			temp.IncrementalOutput = Bool(true)
 		}
 		// 序列化JSON

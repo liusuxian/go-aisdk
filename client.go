@@ -2,7 +2,7 @@
  * @Author: liusuxian 382185882@qq.com
  * @Date: 2025-04-15 18:09:20
  * @LastEditors: liusuxian 382185882@qq.com
- * @LastEditTime: 2025-07-09 15:49:53
+ * @LastEditTime: 2025-10-16 17:02:02
  * @Description:
  *
  * Copyright (c) 2025 by liusuxian email: 382185882@qq.com, All Rights Reserved.
@@ -144,7 +144,7 @@ func (c *SDKClient) handlerRequest(
 		var e error
 		if !c.noCheckMethods[method] {
 			// 判断模型是否支持
-			if e = c.isModelSupported(ps, modelInfo); e != nil {
+			if e = c.isModelSupported(ps, modelInfo, method); e != nil {
 				return nil, e
 			}
 		}
@@ -160,7 +160,7 @@ func (c *SDKClient) handlerRequest(
 }
 
 // isModelSupported 判断模型是否支持
-func (c *SDKClient) isModelSupported(s core.ProviderService, modelInfo models.ModelInfo) (err error) {
+func (c *SDKClient) isModelSupported(s core.ProviderService, modelInfo models.ModelInfo, method string) (err error) {
 	// 获取支持的模型
 	supportedModels := s.GetSupportedModels()
 	if len(supportedModels) == 0 {
@@ -175,8 +175,19 @@ func (c *SDKClient) isModelSupported(s core.ProviderService, modelInfo models.Mo
 		return errors.WrapModelTypeNotSupported(modelInfo.Provider, modelInfo.ModelType)
 	}
 	// 判断模型是否支持
-	if _, ok = modelMap[modelInfo.Model]; !ok {
+	var modelFeature consts.ModelFeature
+	if modelFeature, ok = modelMap[modelInfo.Model]; !ok {
 		return errors.WrapModelNotSupported(modelInfo.Provider, modelInfo.Model, modelInfo.ModelType)
+	}
+	// 检查是否支持仅流式传输
+	switch modelInfo.ModelType {
+	case consts.ChatModel:
+		switch method {
+		case "CreateChatCompletion":
+			if modelFeature.IsStreamingOnly() {
+				return errors.WrapMethodNotSupported(modelInfo.Provider, modelInfo.ModelType, modelInfo.Model, method)
+			}
+		}
 	}
 	return
 }

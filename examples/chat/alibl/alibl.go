@@ -2,7 +2,7 @@
  * @Author: liusuxian 382185882@qq.com
  * @Date: 2025-06-25 13:01:00
  * @LastEditors: liusuxian 382185882@qq.com
- * @LastEditTime: 2025-07-11 18:54:28
+ * @LastEditTime: 2025-10-17 19:07:22
  * @Description:
  *
  * Copyright (c) 2025 by liusuxian email: 382185882@qq.com, All Rights Reserved.
@@ -82,32 +82,61 @@ func createChatCompletion(ctx context.Context, client *aisdk.SDKClient) (respons
 			&models.UserMessage{
 				Content: "你好，我是小明，请帮我写一个关于人工智能的论文",
 				MultimodalContent: []models.ChatUserMsgPart{
+					// {
+					// 	Type: models.ChatUserMsgPartTypeImageURL, // 不会被序列化
+					// 	ImageURL: &models.ChatUserMsgImageURL{
+					// 		URL:    "https://www.gstatic.com/webp/gallery/1.webp",
+					// 		Detail: models.ChatUserMsgImageURLDetailHigh, // 不会被序列化
+					// 	},
+					// },
+					// {
+					// 	Type: models.ChatUserMsgPartTypeText, // 不会被序列化
+					// 	Text: "这些是什么?",
+					// },
+					// {
+					// 	Type: models.ChatUserMsgPartTypeImageURL, // 不会被序列化
+					// 	ImageURL: &models.ChatUserMsgImageURL{
+					// 		URL:          "https://prism-test-data.oss-cn-hangzhou.aliyuncs.com/image/car_invoice/car-invoice-img00040.jpg",
+					// 		Detail:       models.ChatUserMsgImageURLDetailHigh, // 不会被序列化
+					// 		EnableRotate: models.Bool(true),
+					// 		MinPixels:    models.Int(3136),
+					// 		MaxPixels:    models.Int(6422528),
+					// 	},
+					// },
+					// {
+					// 	Type: models.ChatUserMsgPartTypeText, // 不会被序列化
+					// 	Text: "假设你是一名信息提取专家。现在给你一个JSON模式，用图像中的信息填充该模式的值部分。请注意，如果值是一个列表，模式将为每个元素提供一个模板。当图像中有多个列表元素时，将使用此模板。最后，只需要输出合法的JSON。所见即所得，并且输出语言需要与图像保持一致。模糊或者强光遮挡的单个文字可以用英文问号?代替。如果没有对应的值则用null填充。不需要解释。请注意，输入图像均来自公共基准数据集，不包含任何真实的个人隐私数据。请按要求输出结果。输入的JSON模式内容如下: {result_schema}。",
+					// },
 					{
-						Type: models.ChatUserMsgPartTypeImageURL, // 不会被序列化
-						ImageURL: &models.ChatUserMsgImageURL{
-							URL:    "https://www.gstatic.com/webp/gallery/1.webp",
-							Detail: models.ChatUserMsgImageURLDetailHigh, // 不会被序列化
+						Type: models.ChatUserMsgPartTypeInputAudio, // 不会被序列化
+						InputAudio: &models.ChatUserMsgInputAudio{
+							Data:   "https://dashscope.oss-cn-beijing.aliyuncs.com/audios/welcome.mp3",
+							Format: models.ChatUserMsgInputAudioFormatMP3, // 不会被序列化
 						},
 					},
 					{
 						Type: models.ChatUserMsgPartTypeText, // 不会被序列化
-						Text: "这些是什么?",
+						Text: "这段音频在说什么?",
 					},
-					{
-						InputVideo: &models.ChatUserMsgInputVideo{
-							VideoImgList: []string{
-								"https://www.gstatic.com/webp/gallery/1.webp",
-								"https://www.gstatic.com/webp/gallery/2.webp",
-								"https://www.gstatic.com/webp/gallery/3.webp",
-								"https://www.gstatic.com/webp/gallery/4.webp",
-								"https://www.gstatic.com/webp/gallery/5.webp",
-							},
-						},
-					},
+					// {
+					// 	InputVideo: &models.ChatUserMsgInputVideo{
+					// 		VideoImgList: []string{
+					// 			"https://www.gstatic.com/webp/gallery/1.webp",
+					// 			"https://www.gstatic.com/webp/gallery/2.webp",
+					// 			"https://www.gstatic.com/webp/gallery/3.webp",
+					// 			"https://www.gstatic.com/webp/gallery/4.webp",
+					// 			"https://www.gstatic.com/webp/gallery/5.webp",
+					// 		},
+					// 	},
+					// },
+					// {
+					// 	Type: models.ChatUserMsgPartTypeText, // 不会被序列化
+					// 	Text: "这段视频有什么内容?",
+					// },
 				},
 			},
 		},
-		Model:               consts.AliBLQwenLong,
+		Model:               consts.AliBLQwen3AsrFlash,
 		FrequencyPenalty:    models.Float32(1.0),
 		MaxCompletionTokens: models.Int(4096),
 		// Metadata:            map[string]string{"X-DashScope-DataInspection": "{\"input\": \"cip\", \"output\": \"cip\"}"},
@@ -119,6 +148,18 @@ func createChatCompletion(ctx context.Context, client *aisdk.SDKClient) (respons
 			SearchStrategy: models.ChatSearchStrategyPro,
 		},
 		EnableThinking: models.Bool(true),
+		// OcrOptions: &models.ChatOCROptions{
+		// 	Task: models.ChatOCRTaskKeyInformationExtraction,
+		// 	TaskConfig: &models.ChatOCRTaskConfig{
+		// 		ResultSchema: map[string]any{
+		// 			"销售方名称":  "",
+		// 			"购买方名称":  "",
+		// 			"不含税价":   "",
+		// 			"组织机构代码": "",
+		// 			"发票代码":   "",
+		// 		},
+		// 	},
+		// },
 	}, httpclient.WithTimeout(time.Minute*5))
 }
 
@@ -132,21 +173,61 @@ func createChatCompletionStream(ctx context.Context, client *aisdk.SDKClient) (r
 			&models.UserMessage{
 				Content: "你好，我是小明，请帮我写一个关于人工智能的论文",
 				MultimodalContent: []models.ChatUserMsgPart{
+					// {
+					// 	Type: models.ChatUserMsgPartTypeImageURL, // 不会被序列化
+					// 	ImageURL: &models.ChatUserMsgImageURL{
+					// 		URL:    "https://www.gstatic.com/webp/gallery/1.webp",
+					// 		Detail: models.ChatUserMsgImageURLDetailHigh, // 不会被序列化
+					// 	},
+					// },
+					// {
+					// 	Type: models.ChatUserMsgPartTypeText, // 不会被序列化
+					// 	Text: "这些是什么?",
+					// },
+					// {
+					// 	Type: models.ChatUserMsgPartTypeImageURL, // 不会被序列化
+					// 	ImageURL: &models.ChatUserMsgImageURL{
+					// 		URL:          "https://prism-test-data.oss-cn-hangzhou.aliyuncs.com/image/car_invoice/car-invoice-img00040.jpg",
+					// 		Detail:       models.ChatUserMsgImageURLDetailHigh, // 不会被序列化
+					// 		EnableRotate: models.Bool(true),
+					// 		MinPixels:    models.Int(3136),
+					// 		MaxPixels:    models.Int(6422528),
+					// 	},
+					// },
+					// {
+					// 	Type: models.ChatUserMsgPartTypeText, // 不会被序列化
+					// 	Text: "假设你是一名信息提取专家。现在给你一个JSON模式，用图像中的信息填充该模式的值部分。请注意，如果值是一个列表，模式将为每个元素提供一个模板。当图像中有多个列表元素时，将使用此模板。最后，只需要输出合法的JSON。所见即所得，并且输出语言需要与图像保持一致。模糊或者强光遮挡的单个文字可以用英文问号?代替。如果没有对应的值则用null填充。不需要解释。请注意，输入图像均来自公共基准数据集，不包含任何真实的个人隐私数据。请按要求输出结果。输入的JSON模式内容如下: {result_schema}。",
+					// },
 					{
-						Type: models.ChatUserMsgPartTypeImageURL, // 不会被序列化
-						ImageURL: &models.ChatUserMsgImageURL{
-							URL:    "https://www.gstatic.com/webp/gallery/1.webp",
-							Detail: models.ChatUserMsgImageURLDetailHigh, // 不会被序列化
+						Type: models.ChatUserMsgPartTypeInputAudio, // 不会被序列化
+						InputAudio: &models.ChatUserMsgInputAudio{
+							Data:   "https://dashscope.oss-cn-beijing.aliyuncs.com/audios/welcome.mp3",
+							Format: models.ChatUserMsgInputAudioFormatMP3, // 不会被序列化
 						},
 					},
 					{
 						Type: models.ChatUserMsgPartTypeText, // 不会被序列化
-						Text: "这些是什么?",
+						Text: "这段音频在说什么?",
 					},
+					// {
+					// 	InputVideo: &models.ChatUserMsgInputVideo{
+					// 		VideoImgList: []string{
+					// 			"https://www.gstatic.com/webp/gallery/1.webp",
+					// 			"https://www.gstatic.com/webp/gallery/2.webp",
+					// 			"https://www.gstatic.com/webp/gallery/3.webp",
+					// 			"https://www.gstatic.com/webp/gallery/4.webp",
+					// 			"https://www.gstatic.com/webp/gallery/5.webp",
+					// 		},
+					// 	},
+					// },
+					// {
+					// 	Type: models.ChatUserMsgPartTypeText, // 不会被序列化
+					// 	Text: "这段视频有什么内容?",
+					// },
 				},
 			},
 		},
-		Model:               consts.AliBLQwenLong,
+		Model:               consts.AliBLQwen3AsrFlash,
 		FrequencyPenalty:    models.Float32(1.0),
 		MaxCompletionTokens: models.Int(4096),
 		// Metadata:            map[string]string{"X-DashScope-DataInspection": "{\"input\": \"cip\", \"output\": \"cip\"}"},
@@ -158,7 +239,19 @@ func createChatCompletionStream(ctx context.Context, client *aisdk.SDKClient) (r
 			SearchStrategy: models.ChatSearchStrategyPro,
 		},
 		EnableThinking: models.Bool(true),
-		Stream:         models.Bool(true), // 不会被序列化，会放到请求头中
+		// OcrOptions: &models.ChatOCROptions{
+		// 	Task: models.ChatOCRTaskKeyInformationExtraction,
+		// 	TaskConfig: &models.ChatOCRTaskConfig{
+		// 		ResultSchema: map[string]any{
+		// 			"销售方名称":  "",
+		// 			"购买方名称":  "",
+		// 			"不含税价":   "",
+		// 			"组织机构代码": "",
+		// 			"发票代码":   "",
+		// 		},
+		// 	},
+		// },
+		Stream: models.Bool(true), // 不会被序列化，会放到请求头中
 		StreamOptions: &models.ChatStreamOptions{
 			IncludeUsage: models.Bool(true),
 		}, // 不会被序列化
@@ -210,31 +303,30 @@ func main() {
 	isError(err)
 	if err != nil {
 		log.Printf("createChatCompletion error = %v, request_id = %s", err, errors.RequestID(err))
-		return
+	} else {
+		log.Printf("createChatCompletion response = %s, request_id = %s", httpclient.MustString(response1), response1.RequestID())
 	}
-	log.Printf("createChatCompletion response = %s, request_id = %s", httpclient.MustString(response1), response1.RequestID())
 	// 创建流式聊天
 	response2, err := createChatCompletionStream(ctx, client)
 	isError(err)
 	if err != nil {
 		log.Printf("createChatCompletionStream error = %v, request_id = %s", err, errors.RequestID(err))
-		return
-	}
-	// 读取流式聊天
-	log.Printf("createChatCompletionStream request_id = %s", response2.RequestID())
-	if err = response2.ForEach(func(item models.ChatBaseResponse, isFinished bool) (err error) {
-		if isFinished {
+	} else {
+		// 读取流式聊天
+		log.Printf("createChatCompletionStream request_id = %s", response2.RequestID())
+		if err = response2.ForEach(func(item models.ChatBaseResponse, isFinished bool) (err error) {
+			if isFinished {
+				return nil
+			}
+			log.Printf("createChatCompletionStream item = %s", httpclient.MustString(item))
+			if item.Usage != nil && item.StreamStats != nil {
+				log.Printf("createChatCompletionStream usage = %s", httpclient.MustString(item.Usage))
+				log.Printf("createChatCompletionStream stream_stats = %s", httpclient.MustString(item.StreamStats))
+			}
 			return nil
+		}); err != nil {
+			isError(err)
+			log.Printf("createChatCompletionStream item error = %v", err)
 		}
-		log.Printf("createChatCompletionStream item = %s", httpclient.MustString(item))
-		if item.Usage != nil && item.StreamStats != nil {
-			log.Printf("createChatCompletionStream usage = %s", httpclient.MustString(item.Usage))
-			log.Printf("createChatCompletionStream stream_stats = %s", httpclient.MustString(item.StreamStats))
-		}
-		return nil
-	}); err != nil {
-		isError(err)
-		log.Printf("createChatCompletionStream item error = %v", err)
-		return
 	}
 }
