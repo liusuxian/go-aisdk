@@ -26,3 +26,5 @@ go.work.sum
 
 # generated images
 generated_images/
+
+**/.DS_Store
